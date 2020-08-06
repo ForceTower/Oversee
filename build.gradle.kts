@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "dev.forcetower.unes"
-version = "1.0"
+version = "1.0.4"
 
 repositories {
     mavenCentral()
@@ -35,7 +35,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "dev.forcetower.unes"
             artifactId = "oversee"
-            version = "1.0"
+            version = "1.0.4"
 
             pom {
                 name.set("Oversee")
@@ -56,12 +56,6 @@ publishing {
                         name.set("João Paulo Sena")
                         email.set("joaopaulo761@gmail.com")
                     }
-                }
-
-                scm {
-                    connection.set("scm:git:git://github.com/oversee.git")
-                    developerConnection.set("scm:git:ssh://github.com/oversee.git")
-                    url.set("http://www.forcetower.dev/oversee")
                 }
             }
 
@@ -96,7 +90,7 @@ signing {
 dependencies {
     implementation(kotlin("stdlib-jdk7"))
     implementation("org.jsoup:jsoup:1.11.2")
-    implementation("com.squareup.okhttp3:okhttp:4.2.1")
+    implementation("com.squareup.okhttp3:okhttp:4.3.1")
     implementation("com.google.code.gson:gson:2.8.5")
     implementation("io.reactivex.rxjava2:rxkotlin:2.4.0-RC3")
 
