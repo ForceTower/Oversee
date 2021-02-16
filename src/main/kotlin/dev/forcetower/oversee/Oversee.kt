@@ -4,7 +4,7 @@ import dev.forcetower.oversee.impl.OverseeImpl
 import dev.forcetower.oversee.model.NewsMessage
 
 abstract class Oversee {
-    abstract fun getAERINews(): List<NewsMessage>
+    abstract suspend fun getAERINews(): List<NewsMessage>
 
     companion object {
         @JvmStatic

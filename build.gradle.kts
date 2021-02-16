@@ -1,13 +1,13 @@
 plugins {
     java
-    kotlin("jvm") version "1.3.61"
+    kotlin("jvm") version "1.4.30"
     maven
     `maven-publish`
     signing
 }
 
 group = "dev.forcetower.unes"
-version = "1.0.4"
+version = "1.1.0"
 
 repositories {
     mavenCentral()
@@ -35,7 +35,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "dev.forcetower.unes"
             artifactId = "oversee"
-            version = "1.0.4"
+            version = "1.1.0"
 
             pom {
                 name.set("Oversee")
@@ -88,11 +88,12 @@ signing {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk7"))
     implementation("org.jsoup:jsoup:1.11.2")
-    implementation("com.squareup.okhttp3:okhttp:4.3.1")
-    implementation("com.google.code.gson:gson:2.8.5")
-    implementation("io.reactivex.rxjava2:rxkotlin:2.4.0-RC3")
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("com.google.code.gson:gson:2.8.6")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.3.9")
 
     testImplementation("junit", "junit", "4.12")
 }

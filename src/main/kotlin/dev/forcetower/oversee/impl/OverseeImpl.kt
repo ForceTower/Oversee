@@ -17,7 +17,7 @@ class OverseeImpl : Oversee() {
             .build()
     }
 
-    override fun getAERINews() = AERIModule().finishedResult
+    override suspend fun getAERINews() = AERIModule().execute()
 
     companion object {
         private lateinit var sDefaultInstance: OverseeImpl

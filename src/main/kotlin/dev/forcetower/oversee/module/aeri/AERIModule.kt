@@ -10,15 +10,15 @@ import org.jsoup.nodes.Document
 import java.util.logging.Level
 import java.util.logging.Logger
 
-class AERIModule : Module<NewsMessage>() {
-    override fun provide(): List<NewsMessage> {
+class AERIModule : Module<List<NewsMessage>> {
+    override suspend fun execute(): List<NewsMessage> {
         val document = connect()
         return process(document)
     }
 
-    private fun connect(): Document {
+    private suspend fun connect(): Document {
         val call = OverCalls.aeri
-        val result = call.execute()
+        val result = call.executeSuspend()
         val response = result.body!!.string()
         return response.asDocument()
     }
