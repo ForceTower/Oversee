@@ -57,6 +57,12 @@ publishing {
                         email.set("joaopaulo761@gmail.com")
                     }
                 }
+
+                scm {
+                    connection.set("scm:git:git://github.com/ForceTower/Oversee.git")
+                    developerConnection.set("scm:git:ssh://github.com/ForceTower/Oversee.git")
+                    url.set("http://unes.forcetower.dev/oversee")
+                }
             }
 
             artifact(sourcesJar) {
