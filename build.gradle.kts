@@ -4,9 +4,10 @@ plugins {
     `maven-publish`
     signing
 }
+val artifactVersion: String by project
 
 group = "dev.forcetower.unes"
-version = "1.2.0"
+version = artifactVersion
 
 repositories {
     mavenCentral()
@@ -34,7 +35,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "dev.forcetower.unes"
             artifactId = "oversee"
-            version = "1.1.0"
+            version = artifactVersion
 
             pom {
                 name.set("Oversee")
