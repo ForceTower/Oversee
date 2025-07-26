@@ -27,10 +27,10 @@ class AERIModule : Module<List<NewsMessage>> {
         val articles = document.select("article[class=\"noticias\"]")
         return articles.mapNotNull { article ->
             try {
-                val content = article.selectFirst("div[class=\"text\"]")
-                val title = content.selectFirst("h2[class=\"titulo\"]").text()
-                val link = content.selectFirst("a[class=\"bt-mais\"]").attr("href").appendStart(OverRequests.AERI_PAGE)
-                val date = content.selectFirst("span[class=\"data\"]").text()
+                val content = article.selectFirst("div[class=\"text\"]") ?: return@mapNotNull null
+                val title = content.selectFirst("h2[class=\"titulo\"]")?.text() ?: return@mapNotNull null
+                val link = content.selectFirst("a[class=\"bt-mais\"]")?.attr("href")?.appendStart(OverRequests.AERI_PAGE) ?: return@mapNotNull null
+                val date = content.selectFirst("span[class=\"data\"]")?.text() ?: return@mapNotNull null
                 val image = article.selectFirst("figure")?.selectFirst("img")?.attr("src")?.appendStart(OverRequests.AERI_PAGE)
                 NewsMessage(title, link, image, date)
             } catch (error: Throwable) {

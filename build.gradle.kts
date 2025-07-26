@@ -1,24 +1,23 @@
 plugins {
     java
-    kotlin("jvm") version "1.4.30"
-    maven
+    kotlin("jvm") version "2.1.21"
     `maven-publish`
     signing
 }
 
 group = "dev.forcetower.unes"
-version = "1.1.0"
+version = "1.2.0"
 
 repositories {
     mavenCentral()
 }
 
-val sourcesJar = task<Jar> ("sourcesJar") {
+val sourcesJar = tasks.register<Jar>("sourcesJar") {
     archiveClassifier.set("sources")
     from(sourceSets.main.get().allSource)
 }
 
-val javadocJar = task<Jar>("javadocJar") {
+val javadocJar = tasks.register<Jar>("javadocJar") {
     archiveClassifier.set("javadoc")
     val task = project.tasks["javadoc"] as Javadoc
     from(task.destinationDir)
@@ -26,8 +25,8 @@ val javadocJar = task<Jar>("javadocJar") {
 }
 
 artifacts {
-    archives(sourcesJar)
-    archives(javadocJar)
+    archives(sourcesJar.get())
+    archives(javadocJar.get())
 }
 
 publishing {
@@ -77,9 +76,9 @@ publishing {
 
     repositories {
         maven {
-            val sonatypeUsername: String by project
-            val sonatypePassword: String by project
-            setUrl("https://oss.sonatype.org/service/local/staging/deploy/maven2")
+            val sonatypeUsername = System.getenv("MAVEN_CENTRAL_USERNAME") ?: System.getenv("sonatypeUsername")
+            val sonatypePassword = System.getenv("MAVEN_CENTRAL_PASSWORD") ?: System.getenv("sonatypePassword")
+            setUrl("https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/")
             name = "maven"
             credentials {
                 username = sonatypeUsername
@@ -94,25 +93,21 @@ signing {
 }
 
 dependencies {
-    implementation("org.jsoup:jsoup:1.11.2")
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
-    implementation("com.google.code.gson:gson:2.8.6")
+    implementation("org.jsoup:jsoup:1.15.3")
+    implementation("com.squareup.okhttp3:okhttp:5.1.0")
+    implementation("com.google.code.gson:gson:2.13.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.3.9")
-
-    testImplementation("junit", "junit", "4.12")
+    testImplementation(kotlin("test-junit"))
 }
 
-configure<JavaPluginConvention> {
-    sourceCompatibility = JavaVersion.VERSION_1_8
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
-tasks {
-    compileKotlin {
-        kotlinOptions.jvmTarget = "1.8"
-    }
-    compileTestKotlin {
-        kotlinOptions.jvmTarget = "1.8"
+kotlin {
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of("17"))
     }
 }
